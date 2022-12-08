@@ -51,6 +51,7 @@ gameScene.create = function () {
     Phaser.Actions.Call(this.items.getChildren(), function (item) {
         item.setInteractive().on('pointerdown', function () {
             console.log(item.texture.key);
+            console.log('some');
         })
     }, this)
 
