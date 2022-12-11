@@ -14,47 +14,14 @@ gameScene.create = function () {
     this.startingCat = this.sound.add('start')
     this.startingCat.play()
     this.bg = this.add.sprite(0, 0, 'background')
-    // this.player = this.add.sprite(0, 0, 'player').setPosition(50, 180).setScale(1)
-    // this.enemy = this.add.sprite(0, 0, 'enemy').setPosition(350, 180).setScale(1.5)
-    // bg.setOrigin(0, 0)
+    this.player = this.physics.add.sprite(0, 0, 'player').setPosition(50, 180).setScale(1)
+    this.enemy = this.physics.add.sprite(0, 0, 'enemy').setPosition(350, 180).setScale(1)
+    this.star = this.physics.add.sprite(0, 0, 'treasure').setPosition(600, 180).setScale(1)
+    console.log(this.enemy);
+    this.player.body.allowGravity = false
     let gameWidth = this.sys.game.config.width
     let gameHeight = this.sys.game.config.height
     this.bg.setPosition(gameWidth / 2, gameHeight / 2)
-    let cat = {
-        key: 'player',
-        setXY: {
-            x: 50,
-            y: 180
-        },
-        depth: 1,
-    }
-    let bomb = {
-        key: 'enemy',
-        setXY: {
-            x: 350,
-            y: 180
-        },
-        depth: 1,
-        scale: 1.5,
-    }
-    let star = {
-        key: 'treasure',
-        setXY: {
-            x: 600,
-            y: 180
-        },
-        depth: 1,
-        scale: 1.5,
-    }
-    let itemArray = [cat, bomb, star]
-    this.items = this.add.group(itemArray)
-    Phaser.Actions.Call(this.items.getChildren(), function (item) {
-        item.setInteractive().on('pointerdown', function () {
-            console.log(item.texture.key);
-            console.log('some');
-        })
-    }, this)
-
 
 }
 gameScene.update = function () {
@@ -69,6 +36,14 @@ let config = {
     height: 360,
     scene: gameScene,
     pixelArt: false,
-    title: 'Crossing'
+    title: 'Crossing',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 20 },
+            debug: true
+        }
+    }
+
 }
 let game = new Phaser.Game(config)
